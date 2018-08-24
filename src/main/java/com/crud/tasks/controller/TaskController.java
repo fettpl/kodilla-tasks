@@ -17,22 +17,22 @@ public class TaskController {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/v1/task/{taskId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/v1/task/getTask/{taskId}")
     public TaskDto getTask(@PathVariable Long taskId) {
         return new TaskDto(1L, "Test title", "test_content");
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/v1/task/{taskId}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/v1/task/deleteTask/{taskId}")
     public void deleteTask(@PathVariable Long taskId) {
 
     }
 
-    @RequestMapping(method = RequestMethod.PATCH)
+    @RequestMapping(method = RequestMethod.PATCH, value = "/v1/task/updateTask")
     public TaskDto updateTask(TaskDto taskDto) {
         return new TaskDto(1L, "Edited test title", "test_content");
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT, value = "/v1/task/createTask")
     public void createTask(TaskDto taskDto) {
 
     }
