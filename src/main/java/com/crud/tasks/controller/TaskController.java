@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -14,25 +14,30 @@ import java.util.List;
 public class TaskController {
     @RequestMapping(method = RequestMethod.GET, value = "getTasks")
     public List<TaskDto> getTasks() {
-        return new ArrayList<>();
+
+        TaskDto dto1 = new TaskDto(1L, "abc", "def");
+        TaskDto dto2 = new TaskDto(2L, "abc", "def");
+        TaskDto dto3 = new TaskDto(3L, "abc", "def");
+
+        return Arrays.asList(dto1, dto2, dto3);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/v1/task/getTask/{taskId}")
+    @RequestMapping(method = RequestMethod.GET, value = "getTask")
     public TaskDto getTask(@PathVariable Long taskId) {
         return new TaskDto(1L, "Test title", "test_content");
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/v1/task/deleteTask/{taskId}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
     public void deleteTask(@PathVariable Long taskId) {
 
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "/v1/task/updateTask")
+    @RequestMapping(method = RequestMethod.PATCH, value = "updateTask")
     public TaskDto updateTask(TaskDto taskDto) {
         return new TaskDto(1L, "Edited test title", "test_content");
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/v1/task/createTask")
+    @RequestMapping(method = RequestMethod.POST, value = "createTask")
     public void createTask(TaskDto taskDto) {
 
     }
