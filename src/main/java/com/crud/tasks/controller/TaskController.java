@@ -22,17 +22,12 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getTasks")
     public List<TaskDto> getTasks() {
-
-        TaskDto dto1 = new TaskDto(1L, "abc", "def");
-        TaskDto dto2 = new TaskDto(2L, "abc", "def");
-        TaskDto dto3 = new TaskDto(3L, "abc", "def");
-
-        return Arrays.asList(dto1, dto2, dto3);
+        return taskMapper.mapToTaskDtoList(service.getAllTasks());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getTask")
     public TaskDto getTask(Long taskId) {
-        return new TaskDto(1L, "Test title", "test_content");
+        return taskMapper.mapToTaskDto(service.getByID());
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
