@@ -1,7 +1,6 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Task;
-import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class DbService {
         return repository.findAll();
     }
 
-    public Task getByID() {
-        return repository.findById();
+    public Task getTaskById(final Long id) {
+        return repository.findTaskById(id);
     }
 }
