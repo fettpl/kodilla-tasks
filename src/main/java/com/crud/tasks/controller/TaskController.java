@@ -6,6 +6,7 @@ import com.crud.tasks.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,7 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
+    @Transactional
     public void deleteTask(@RequestParam Long taskId) {
         service.deleteTask(taskId);
     }
