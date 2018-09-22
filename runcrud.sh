@@ -14,8 +14,8 @@ start_tomcat()
 }
 
 rename() {
-  rm build/libs/crud.war
-  if mv build/libs/tasks-0.0.1-SNAPSHOT.war build/libs/crud.war; then
+  rm build/libs/crud.jar
+  if mv build/libs/tasks-0.0.1-SNAPSHOT.jar build/libs/crud.jar; then
      echo "Successfully renamed file"
   else
      echo "Cannot rename file"
@@ -24,7 +24,7 @@ rename() {
 }
 
 copy_file() {
-  if cp build/libs/crud.war $CATALINA_HOME/webapps; then
+  if cp build/libs/crud.jar $CATALINA_HOME/webapps; then
      start_tomcat
   else
      fail
