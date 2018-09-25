@@ -2,26 +2,27 @@ package com.crud.tasks;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
+import com.ulisesbocchio.jasyptspringboot.environment.StandardEncryptableEnvironment;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 @EnableEncryptableProperties
-@EncryptablePropertySource(name = "ApplicationProperties", value = "classpath:application.properties")
-//public class TasksApplication extends SpringBootServletInitializer {
+@EncryptablePropertySource("application.properties")
+@Configuration
+@EncryptablePropertySource(name = "EncryptedProperties", value = "classpath:application.properties")
 public class TasksApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(TasksApplication.class, args);
+		new SpringApplicationBuilder()
+				.environment(new StandardEncryptableEnvironment())
+				.sources(TasksApplication.class).run(args);
 	}
 
-//	@Override
-//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//		return application.sources(TasksApplication.class);
-//	}
 	@Bean("jasyptStringEncryptor")
 	public StringEncryptor stringEncryptor() {
 		PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
@@ -36,7 +37,4 @@ public class TasksApplication {
 		encryptor.setConfig(config);
 		return encryptor;
 	}
-
-	String originalKey = stringEncryptor().decrypt("${trello.app.key}");
-	String originalToken = stringEncryptor().decrypt("${trello.app.token}");
 }

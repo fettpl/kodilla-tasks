@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.15.RELEASE'
+		springBootVersion = '2.0.5.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -33,5 +33,9 @@ dependencies {
 	compileOnly("org.projectlombok:lombok:1.16.18")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	//providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-	compile('com.github.ulisesbocchio:jasypt-spring-boot:2.1.0')
+
+
+	compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '2.1.0'
+
+//	compile('com.github.ulisesbocchio:jasypt-spring-boot:2.1.0')
 }
