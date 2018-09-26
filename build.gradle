@@ -32,7 +32,7 @@ dependencies {
     compile('org.postgresql:postgresql')
     compileOnly("org.projectlombok:lombok:1.16.18")
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    //git providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
 
     compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '2.1.0'
