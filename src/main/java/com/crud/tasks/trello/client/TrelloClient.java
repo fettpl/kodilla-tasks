@@ -14,6 +14,8 @@ import java.util.List;
 
 @Component
 public class TrelloClient {
+    private static final String TRELLO_KEY = "key";
+    private static final String TRELLO_TOKEN = "token";
 
     @Value("${trello.api.endpoint.prod}")
     private String trelloApiEndpoint;
@@ -40,8 +42,6 @@ public class TrelloClient {
     }
 
     private URI getTrelloUri() {
-        final String TRELLO_KEY = "key";
-        final String TRELLO_TOKEN = "token";
 
         return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUsername + "/boards")
                 .queryParam(TRELLO_KEY, trelloToken)
