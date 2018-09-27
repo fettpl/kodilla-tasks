@@ -16,6 +16,9 @@ import java.util.List;
 public class TrelloClient {
     private static final String TRELLO_KEY = "key";
     private static final String TRELLO_TOKEN = "token";
+    private static final String MEMBERS = "members";
+    private static final String BOARDS = "boards";
+    private static final String FIELDS = "fields";
 
     @Value("${trello.api.endpoint.prod}")
     private String trelloApiEndpoint;
@@ -43,9 +46,9 @@ public class TrelloClient {
 
     private URI getTrelloUri() {
 
-        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUsername + "/boards")
+        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/" + MEMBERS + "/" + trelloUsername + "/" + BOARDS)
                 .queryParam(TRELLO_KEY, trelloToken)
                 .queryParam(TRELLO_TOKEN, trelloToken)
-                .queryParam("fields", "name,id").build().encode().toUri();
+                .queryParam(FIELDS, "name,id").build().encode().toUri();
     }
 }

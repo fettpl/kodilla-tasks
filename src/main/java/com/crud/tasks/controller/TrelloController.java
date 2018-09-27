@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/trello")
 public class TrelloController {
+    private static final String PLATFORM_NAME = "Kodilla";
 
     @Autowired
     private TrelloClient trelloClient;
@@ -24,7 +25,7 @@ public class TrelloController {
         trelloBoards.stream()
                 .filter(t -> t.getId() != null)
                 .filter(t -> t.getName() != null)
-                .filter(t -> t.getName().contains("Kodilla"))
+                .filter(t -> t.getName().contains(PLATFORM_NAME))
                 .forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
 
     }
