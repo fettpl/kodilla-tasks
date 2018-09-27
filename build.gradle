@@ -28,15 +28,11 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    //compile('mysql:mysql-connector-java')
-    compile('org.postgresql:postgresql')
+    compile('mysql:mysql-connector-java')
+    //compile('org.postgresql:postgresql')
     compileOnly("org.projectlombok:lombok:1.16.18")
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    //git providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-
-
+    //providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '2.1.0'
-
-//	compile('com.github.ulisesbocchio:jasypt-spring-boot:2.1.0')
 }
 
