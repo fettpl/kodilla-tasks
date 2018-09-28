@@ -27,6 +27,5 @@ public class TrelloController {
                 .filter(t -> t.getName() != null)
                 .filter(t -> t.getName().contains(PLATFORM_NAME))
                 .forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName()));
-
     }
 }
