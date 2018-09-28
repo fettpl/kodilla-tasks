@@ -8,19 +8,24 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TrelloClient {
+    private static final String MEMBERS = "members";
+    private static final String BOARDS = "boards";
     private static final String TRELLO_KEY = "key";
     private static final String TRELLO_TOKEN = "token";
+    private static final String FILTER = "filter";
+    private static final String FIELDS = "fields";
+    private static final String LISTS = "lists";
 
     @Value("${trello.api.endpoint.prod}")
     private String trelloApiEndpoint;
 
-    @Value("$(trello.api.username}")
+    @Value("${trello.app.username}")
     private String trelloUsername;
 
     @Value("${trello.app.key}")
@@ -35,18 +40,16 @@ public class TrelloClient {
     public List<TrelloBoardDto> getTrelloBoards() {
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getTrelloUri(), TrelloBoardDto[].class);
 
-        if (boardsResponse != null) {
-            return Arrays.asList(boardsResponse);
-        }
-        return new ArrayList<>();
+        return Arrays.asList(Optional.ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
     }
 
     private URI getTrelloUri() {
 
-        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/" + trelloUsername + "/boards")
-                .queryParam(TRELLO_KEY, trelloToken)
-                .queryParam(TRELLO_TOKEN, trelloToken)
-                .queryParam("fields", "name,id")
-                .queryParam("lists", "all").build().encode().toUri();
+        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/" + MEMBERS + "/" + trelloUsername + "/" + BOARDS)
+                .queryParam(FILTER, "all")
+                .queryParam(FIELDS, "id,name")
+                .queryParam(LISTS, "all")
+                .queryParam(TRELLO_KEY, trelloAppKey)
+                .queryParam(TRELLO_TOKEN, trelloToken).build().encode().toUri();
     }
 }
