@@ -41,9 +41,10 @@ public class TrelloClient {
     private RestTemplate restTemplate;
 
     public List<TrelloBoardDto> getTrelloBoards() {
+        URI getUrl = getTrelloUri();
 
         try {
-            TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getTrelloUri(), TrelloBoardDto[].class);
+            TrelloBoardDto[] boardsResponse = restTemplate.getForObject(getUrl, TrelloBoardDto[].class);
             return Arrays.asList(Optional.ofNullable(boardsResponse).orElse(new TrelloBoardDto[0]));
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
@@ -60,16 +61,16 @@ public class TrelloClient {
                 .queryParam(POS, trelloCardDto.getPos())
                 .queryParam(IDLIST, trelloCardDto.getListId()).build().encode().toUri();
 
-        return restTemplate.postForObject(postUrl,null , CreatedTrelloCard.class);
+        return restTemplate.postForObject(postUrl, null, CreatedTrelloCard.class);
     }
+
 
     private URI getTrelloUri() {
         return UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/" + MEMBERS + "/"
                 + trelloConfig.getTrelloUsername() + "/" + BOARDS)
-                .queryParam(FILTER, "all")
-                .queryParam(FIELDS, "id,name")
-                .queryParam(LISTS, "all")
                 .queryParam(TRELLO_KEY, trelloConfig.getTrelloAppKey())
-                .queryParam(TRELLO_TOKEN, trelloConfig.getTrelloToken()).build().encode().toUri();
+                .queryParam(TRELLO_TOKEN, trelloConfig.getTrelloToken())
+                .queryParam(FIELDS, "name,id")
+                .queryParam(LISTS, "all").build().encode().toUri();
     }
 }
