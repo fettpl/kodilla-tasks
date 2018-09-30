@@ -1,6 +1,7 @@
 package com.crud.tasks.trello.client;
 
 import com.crud.tasks.domain.CreatedTrelloCard;
+import com.crud.tasks.domain.TrelloBadgeDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
@@ -32,9 +33,13 @@ public class TrelloClientTest {
     @Mock
     private TrelloConfig trelloConfig;
 
+    @Mock
+    private TrelloBadgeDto trelloBadgeDto;
+
     @Before
     public void init() {
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
+        when(trelloConfig.getTrelloUsername()).thenReturn("pb_kodilla");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
         when(trelloConfig.getTrelloToken()).thenReturn("test");
     }
@@ -64,7 +69,7 @@ public class TrelloClientTest {
         // Given
         TrelloCardDto trelloCardDto = new TrelloCardDto(
                 "Test task",
-                "Test Decription",
+                "Test Description",
                 "top",
                 "test_id"
         );
@@ -73,14 +78,34 @@ public class TrelloClientTest {
 
         CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
                 "1",
+                trelloBadgeDto,
                 "Test task",
                 "http://test.com"
         );
+
+        when(restTemplate.postForObject(uri, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
 
         // When
         CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
 
         // Then
+        assertEquals("1", newCard.getId());
+        assertEquals("Test task", newCard.getName());
+        assertEquals("http://test.com", newCard.getShortUrl());
+    }
 
+    @Test
+    public void shouldReturnEmptyList() throws URISyntaxException {
+        // Given
+        TrelloBoardDto[] trelloBoardDto = null;
+        URI uri = new URI("http://test.com/members/pb_kodilla/boards?key=test&token=test&fields=name,id&lists=all");
+
+        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoardDto);
+
+        // When
+        List<TrelloBoardDto> shouldBeEmpty = trelloClient.getTrelloBoards();
+
+        // Then
+        assertEquals(0, shouldBeEmpty.size());
     }
 }
