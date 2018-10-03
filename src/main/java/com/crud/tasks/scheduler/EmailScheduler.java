@@ -21,17 +21,6 @@ public class EmailScheduler {
     @Autowired
     private AdminConfig adminConfig;
 
-    public String returnNumberOfTasks() {
-        long number = taskRepository.count();
-        if (number > 1) {
-            return "tasks";
-        } else if (number < 1) {
-            return "tasks";
-        } else {
-            return "task";
-        }
-    }
-
     @Scheduled(cron = "0 0 10 * * *")
     public void sendInformationEmail() {
         long size = taskRepository.count();
@@ -41,5 +30,14 @@ public class EmailScheduler {
                 SUBJECT,
                 "Currently in database you have: " + size + " " + returnNumberOfTasks() + ".")
         );
+    }
+
+    private String returnNumberOfTasks() {
+        long number = taskRepository.count();
+        if (number > 1 || number < 1) {
+            return "tasks";
+        } else {
+            return "task";
+        }
     }
 }
