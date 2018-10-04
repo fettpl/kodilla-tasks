@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailScheduler {
     private static final String SUBJECT = "Tasks: Once a day email";
+    private static final int ONE_TASK = 1;
 
     @Autowired
     private SimpleEmailService simpleEmailService;
@@ -33,11 +34,8 @@ public class EmailScheduler {
     }
 
     private String returnNumberOfTasks() {
-        long number = taskRepository.count();
-        if (number > 1 || number < 1) {
-            return "tasks";
-        } else {
-            return "task";
-        }
+        return taskRepository.count() != ONE_TASK ?
+                "tasks" :
+                "task";
     }
 }
