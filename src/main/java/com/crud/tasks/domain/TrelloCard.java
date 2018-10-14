@@ -5,8 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class TrelloList {
-    private String id;
+public class TrelloCard {
     private String name;
-    private boolean isClosed;
+    private String description;
+    private String pos;
+    private String listId;
 }

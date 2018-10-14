@@ -11,16 +11,4 @@ public class TrelloBoard {
     private String id;
     private String name;
     private List<TrelloList> lists;
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<TrelloList> getLists() {
-        return lists;
-    }
 }
