@@ -13,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
@@ -67,8 +68,6 @@ public class TrelloFacadeTestSuite {
 
         // When
         when(trelloService.fetchTrelloBoards()).thenReturn(trelloBoards);
-        when(trelloMapper.mapToList(trelloLists)).thenReturn(mappedTrelloLists);
-        when(trelloMapper.mapToListDto(anyList())).thenReturn(trelloLists);
         when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(mappedTrelloBoards);
         when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(trelloBoards);
         when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(mappedTrelloBoards);
@@ -76,10 +75,18 @@ public class TrelloFacadeTestSuite {
         List<TrelloBoardDto> trelloBoardDtos = trelloFacade.fetchTrelloBoards();
 
         // Then
+        assertNotNull(trelloBoardDtos);
         assertEquals(1, trelloBoardDtos.size());
 
         trelloBoardDtos.forEach(trelloBoardDto -> {
             assertEquals("4", trelloBoardDto.getId());
+            assertEquals("dtoBoardname", trelloBoardDto.getName());
+
+            trelloBoardDto.getLists().forEach(trelloListDto -> {
+                    assertEquals("1", trelloListDto.getId());
+                    assertEquals("listname", trelloListDto.getName());
+                    assertEquals(false, trelloListDto.isClosed());
+            });
         });
 
         trelloMapper.mapToList(trelloLists).forEach(trelloList -> {
