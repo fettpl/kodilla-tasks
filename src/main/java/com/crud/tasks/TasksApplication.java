@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EncryptablePropertySource(name = "EncryptedProperties", value = "classpath:application.properties")
 public class TasksApplication {
-	public static void main(String[] args) {
-		new SpringApplicationBuilder()
-				.environment(new StandardEncryptableEnvironment())
-				.sources(TasksApplication.class).run(args);
-	}
+    public static void main(String[] args) {
+        new SpringApplicationBuilder()
+                .environment(new StandardEncryptableEnvironment())
+                .sources(TasksApplication.class).run(args);
+    }
 }
