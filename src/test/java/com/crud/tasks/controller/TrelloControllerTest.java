@@ -103,7 +103,7 @@ public class TrelloControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(jsonPath("$.id", is("323")))
-                .andExpect(jsonPath("$.trelloBadgeDto", trelloBadgeDto))
+                .andExpect(jsonPath("$.attachmentsByType.trello.badge", is(trelloBadgeDto)))
                 .andExpect(jsonPath("$.name", is("Test")))
                 .andExpect(jsonPath("$.shortUrl", is("http://test.com")));
     }
