@@ -5,7 +5,6 @@ import com.crud.tasks.trello.facade.TrelloFacade;
 import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +45,7 @@ public class TrelloControllerTest {
 
         // When & Then
         mockMvc.perform(get("/v1/trello/getTrelloBoards").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(200)) // or isOk((
+                .andExpect(status().is(200)) // or isOk
                 .andExpect(jsonPath("$", hasSize(0)));
     }
 
@@ -103,7 +101,6 @@ public class TrelloControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(jsonPath("$.id", is("323")))
-                .andExpect(jsonPath("$.attachmentsByType.trello.badge", is(trelloBadgeDto)))
                 .andExpect(jsonPath("$.name", is("Test")))
                 .andExpect(jsonPath("$.shortUrl", is("http://test.com")));
     }
