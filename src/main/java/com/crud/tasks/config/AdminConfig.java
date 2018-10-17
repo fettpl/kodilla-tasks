@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 public class AdminConfig {
-    @Value("${admin.mail")
+    @Value("${admin.mail}")
     private String adminMail;
 
     @Value("${admin.name}")
