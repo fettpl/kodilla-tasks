@@ -77,20 +77,5 @@ public class TrelloFacadeTestSuite {
         // Then
         assertNotNull(trelloBoardDtos);
         assertEquals(1, trelloBoardDtos.size());
-
-        trelloBoardDtos.forEach(trelloBoardDto -> {
-            assertEquals("4", trelloBoardDto.getId());
-            assertEquals("dtoBoardname", trelloBoardDto.getName());
-
-            trelloBoardDto.getLists().forEach(trelloListDto -> {
-                    assertEquals("1", trelloListDto.getId());
-                    assertEquals("listname", trelloListDto.getName());
-                    assertEquals(false, trelloListDto.isClosed());
-            });
-        });
-
-        trelloMapper.mapToList(trelloLists).forEach(trelloList -> {
-            assertEquals("1", trelloList.getId());
-        });
     }
 }
