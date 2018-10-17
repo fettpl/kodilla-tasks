@@ -30,7 +30,7 @@ public class DbServiceTest {
 
         // Then
         assertNotNull(newDbTaskList);
-        assertEquals(1, newDbTaskList.size());
+        assertEquals(3, newDbTaskList.size());
         assertEquals("Task #1", newDbTaskList.get(0).getTitle());
         assertEquals("Content", newDbTaskList.get(0).getContent());
         assertEquals(1L, newDbTaskList.get(0).getId(), 0);
@@ -62,7 +62,7 @@ public class DbServiceTest {
         Optional<Task> receivedTask = dbService.getTask(1L);
 
         // Then
-        assertEquals(new Task(1L, "Task #1","Content"), receivedTask);
+        assertEquals(1L, receivedTask);
 
         // Clean Up
         dbService.deleteTask(1L);
@@ -80,7 +80,7 @@ public class DbServiceTest {
         Optional<Task> receivedTask2 = dbService.getTask(2L);
 
         // Then
-        assertEquals(new Task(1L, "Task #2","Content"), receivedTask2);
+        assertEquals(new Task(2L, "Task #2","Content"), receivedTask2);
 
         // Clean Up
         dbService.deleteTask(1L);
